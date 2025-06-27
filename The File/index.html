@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COSMIC CONVERTER | Quantum File Transformation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --cosmic-primary: #6e00ff;
+      --cosmic-secondary: #ff00a0;
+      --cosmic-accent: #00f7ff;
+      --cosmic-dark: #0f0b1a;
+      --cosmic-darker: #080511;
+      --cosmic-light: #f0e6ff;
+      --cosmic-danger: #ff3860;
+      --cosmic-success: #2de2a5;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at 20% 30%, rgba(110, 0, 255, 0.1) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(255, 0, 160, 0.1) 0%, transparent 40%),
+                  linear-gradient(var(--cosmic-darker), var(--cosmic-dark));
+      color: var(--cosmic-light);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .cosmic-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Quantum Header */
+    .cosmic-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+      animation: cosmicFloat 8s ease-in-out infinite;
+    }
+
+    @keyframes cosmicFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .cosmic-header h1 {
+      font-size: 4.5rem;
+      background: linear-gradient(90deg, var(--cosmic-primary), var(--cosmic-secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      text-shadow: 0 0 20px rgba(110, 0, 255, 0.3);
+    }
+
+    .cosmic-header p {
+      font-size: 1.3rem;
+      opacity: 0.8;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Quantum Upload Zone */
+    .upload-zone {
+      border: 3px dashed rgba(110, 0, 255, 0.3);
+      border-radius: 25px;
+      padding: 4rem 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      background: rgba(15, 11, 26, 0.5);
+      backdrop-filter: blur(10px);
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .upload-zone.active {
+      border-color: var(--cosmic-accent);
+      box-shadow: 0 0 30px rgba(0, 247, 255, 0.2);
+    }
+
+    .upload-zone::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(110, 0, 255, 0.1) 0%, transparent 70%),
+                  radial-gradient(circle, rgba(255, 0, 160, 0.1) 0%, transparent 70%);
+      animation: cosmicPulse 20s infinite alternate;
+      z-index: -1;
+      opacity: 0.5;
+    }
+
+    @keyframes cosmicPulse {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(5%, 5%); }
+      50% { transform: translate(0, 10%); }
+      75% { transform: translate(-5%, 5%); }
+      100% { transform: translate(0, 0); }
+    }
+
+    .upload-icon {
+      font-size: 5rem;
+      margin-bottom: 1.5rem;
+      color: var(--cosmic-primary);
+      display: inline-block;
+      transition: all 0.3s ease;
+      animation: iconPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes iconPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .upload-text h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, var(--cosmic-primary), var(--cosmic-accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .upload-text p {
+      opacity: 0.7;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    /* Quantum Buttons */
+    .cosmic-btn {
+      background: linear-gradient(90deg, var(--cosmic-primary), var(--cosmic-secondary));
+      color: white;
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(110, 0, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+      font-size: 1.1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .cosmic-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: all 0.6s ease;
+    }
+
+    .cosmic-btn:hover::before {
+      left: 100%;
+    }
+
+    .cosmic-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(110, 0, 255, 0.4);
+    }
+
+    .cosmic-btn:active {
+      transform: translateY(0);
+    }
+
+    .cosmic-btn.outline {
+      background: transparent;
+      border: 2px solid var(--cosmic-primary);
+      color: var(--cosmic-primary);
+      box-shadow: none;
+    }
+
+    .cosmic-btn.outline:hover {
+      background: rgba(110, 0, 255, 0.1);
+    }
+
+    /* File List Quantum Grid */
+    .file-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .file-card {
+      background: rgba(15, 11, 26, 0.7);
+      border-radius: 15px;
+      padding: 1.5rem;
+      border-left: 5px solid var(--cosmic-primary);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .file-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(110, 0, 255, 0.1), rgba(255, 0, 160, 0.05));
+      z-index: -1;
+    }
+
+    .file-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(110, 0, 255, 0.2);
+    }
+
+    .file-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      gap: 1rem;
+    }
+
+    .file-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(110, 0, 255, 0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cosmic-primary);
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .file-info {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .file-name {
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 0.3rem;
+    }
+
+    .file-size {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    .file-progress {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      margin: 1rem 0;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--cosmic-primary), var(--cosmic-secondary));
+      border-radius: 4px;
+      transition: width 0.3s ease;
+      position: relative;
+    }
+
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: progressShine 2s infinite;
+    }
+
+    @keyframes progressShine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Format Suggestions */
+    .suggestions-container {
+      background: rgba(15, 11, 26, 0.7);
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(110, 0, 255, 0.3);
+    }
+
+    .suggestions-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      gap: 1rem;
+    }
+
+    .suggestions-header h3 {
+      font-size: 1.5rem;
+      background: linear-gradient(90deg, var(--cosmic-accent), var(--cosmic-primary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .ai-badge {
+      background: rgba(0, 247, 255, 0.2);
+      color: var(--cosmic-accent);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .suggestion-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .suggestion-group h4 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      opacity: 0.9;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .format-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .format-btn {
+      background: rgba(110, 0, 255, 0.1);
+      color: var(--cosmic-primary);
+      border: 2px solid var(--cosmic-primary);
+      padding: 0.7rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .format-btn:hover {
+      background: rgba(110, 0, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .format-btn.active {
+      background: var(--cosmic-primary);
+      color: white;
+      box-shadow: 0 5px 15px rgba(110, 0, 255, 0.3);
+    }
+
+    /* Results Panel */
+    .results-panel {
+      background: rgba(15, 11, 26, 0.7);
+      border-radius: 15px;
+      padding: 2rem;
+      margin-top: 2rem;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(45, 226, 165, 0.3);
+      display: none;
+    }
+
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .results-header h2 {
+      font-size: 1.8rem;
+      background: linear-gradient(90deg, var(--cosmic-success), var(--cosmic-accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .download-options {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .timer {
+      background: rgba(255, 56, 96, 0.2);
+      color: var(--cosmic-danger);
+      padding: 0.7rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .converted-files {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .converted-file {
+      background: rgba(15, 11, 26, 0.5);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(110, 0, 255, 0.2);
+    }
+
+    .converted-file:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(110, 0, 255, 0.1);
+    }
+
+    .file-preview {
+      height: 150px;
+      background: var(--cosmic-darker);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .file-thumbnail {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .file-icon-big {
+      font-size: 3rem;
+      color: var(--cosmic-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .file-extension {
+      background: rgba(110, 0, 255, 0.2);
+      color: var(--cosmic-primary);
+      padding: 0.3rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .file-details h4 {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .file-details p {
+      opacity: 0.7;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .download-link {
+      color: var(--cosmic-primary);
+      text-decoration: none;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .download-link:hover {
+      color: var(--cosmic-accent);
+    }
+
+    /* QR Section */
+    .qr-section {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(110, 0, 255, 0.2);
+    }
+
+    .qr-section h3 {
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+    }
+
+    .qr-code {
+      background: white;
+      padding: 1rem;
+      border-radius: 12px;
+      display: inline-block;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Toolbox */
+    .toolbox {
+      margin-top: 3rem;
+    }
+
+    .toolbox h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, var(--cosmic-primary), var(--cosmic-secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .tool-card {
+      background: rgba(15, 11, 26, 0.7);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px);
+      background: rgba(110, 0, 255, 0.1);
+      border-color: var(--cosmic-primary);
+    }
+
+    .tool-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--cosmic-primary);
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .tool-card:hover .tool-icon {
+      transform: scale(1.1);
+    }
+
+    .tool-name {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .tool-desc {
+      opacity: 0.7;
+      font-size: 0.9rem;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 60px;
+      height: 60px;
+      background: var(--cosmic-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(110, 0, 255, 0.3);
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    .theme-toggle i {
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .cosmic-header h1 {
+        font-size: 3.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .cosmic-header h1 {
+        font-size: 2.5rem;
+      }
+      
+      .cosmic-header p {
+        font-size: 1.1rem;
+      }
+      
+      .file-grid, .converted-files {
+        grid-template-columns: 1fr;
+      }
+      
+      .tool-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+      
+      .upload-zone {
+        padding: 3rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cosmic-header h1 {
+        font-size: 2rem;
+      }
+      
+      .cosmic-container {
+        padding: 1.5rem;
+      }
+      
+      .download-options {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .cosmic-btn, .timer {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cosmic-container">
+    <!-- Quantum Header -->
+    <header class="cosmic-header">
+      <h1>COSMIC CONVERTER</h1>
+      <p>Transform your files across dimensions with our quantum-powered conversion engine. Experience the future of file processing today.</p>
+    </header>
+
+    <!-- Quantum Upload Zone -->
+    <div class="upload-zone" id="drop-zone">
+      <div class="upload-icon">
+        <i class="fas fa-cloud-upload-alt"></i>
+      </div>
+      <div class="upload-text">
+        <h3>Drop files here or click to upload</h3>
+        <p>Supports images, videos, documents, and more. Max 10 files at once.</p>
+      </div>
+      <button class="cosmic-btn" id="upload-btn">
+        <i class="fas fa-folder-open"></i> Browse Files
+      </button>
+      <input type="file" id="file-input" multiple style="display: none;">
+    </div>
+
+    <!-- File Grid -->
+    <div class="file-grid" id="file-list">
+      <!-- Files will be dynamically added here -->
+    </div>
+
+    <!-- Format Suggestions -->
+    <div class="suggestions-container" id="format-suggestions">
+      <div class="suggestions-header">
+        <h3>AI-Powered Format Suggestions</h3>
+        <div class="ai-badge">
+          <i class="fas fa-robot"></i> SMART RECOMMENDATIONS
+        </div>
+      </div>
+      <!-- Suggestions will be dynamically added here -->
+    </div>
+
+    <!-- Convert Button -->
+    <div style="text-align: center; margin-bottom: 3rem;">
+      <button class="cosmic-btn" id="convert-btn" disabled>
+        <i class="fas fa-magic"></i> Convert Files
+      </button>
+    </div>
+
+    <!-- Results Panel -->
+    <div class="results-panel" id="result-panel">
+      <div class="results-header">
+        <h2>Conversion Complete!</h2>
+        <div class="download-options">
+          <div class="timer">
+            <i class="fas fa-clock"></i>
+            <span id="delete-timer">10:00</span>
+          </div>
+          <button class="cosmic-btn" id="download-btn">
+            <i class="fas fa-download"></i> Download All
+          </button>
+          <button class="cosmic-btn outline" id="cloud-upload-btn">
+            <i class="fas fa-cloud-upload-alt"></i> Save to Cloud
+          </button>
+        </div>
+      </div>
+      
+      <div class="converted-files" id="converted-files">
+        <!-- Converted files will be added here -->
+      </div>
+      
+      <div class="qr-section">
+        <h3>Scan to download on mobile</h3>
+        <div class="qr-code" id="qr-code-container"></div>
+      </div>
+    </div>
+
+    <!-- Toolbox -->
+    <div class="toolbox">
+      <h2>Cosmic Toolbox</h2>
+      <div class="tool-grid" id="toolbox">
+        <div class="tool-card" data-tool="merge-pdf">
+          <div class="tool-icon">
+            <i class="fas fa-file-pdf"></i>
+          </div>
+          <h3 class="tool-name">Merge PDF</h3>
+          <p class="tool-desc">Combine multiple PDFs into one</p>
+        </div>
+        <div class="tool-card" data-tool="compress-video">
+          <div class="tool-icon">
+            <i class="fas fa-file-video"></i>
+          </div>
+          <h3 class="tool-name">Compress Video</h3>
+          <p class="tool-desc">Reduce video size without quality loss</p>
+        </div>
+        <div class="tool-card" data-tool="extract-audio">
+          <div class="tool-icon">
+            <i class="fas fa-music"></i>
+          </div>
+          <h3 class="tool-name">Extract Audio</h3>
+          <p class="tool-desc">Get audio from video files</p>
+        </div>
+        <div class="tool-card" data-tool="ocr">
+          <div class="tool-icon">
+            <i class="fas fa-text-height"></i>
+          </div>
+          <h3 class="tool-name">OCR Text</h3>
+          <p class="tool-desc">Extract text from images</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme Toggle -->
+  <div class="theme-toggle" id="theme-toggle">
+    <i class="fas fa-moon"></i>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.7.2/dist/socket.io.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  
+  <script>
+    // Cosmic Converter Application
+    class CosmicConverterApp {
+      constructor() {
+        this.files = [];
+        this.selectedFormat = null;
+        this.socket = io();
+        this.initElements();
+        this.setupEventListeners();
+        this.setupSocket();
+        this.setupThemeToggle();
+      }
+
+      initElements() {
+        this.dropZone = document.getElementById('drop-zone');
+        this.fileInput = document.getElementById('file-input');
+        this.fileList = document.getElementById('file-list');
+        this.uploadBtn = document.getElementById('upload-btn');
+        this.formatSuggestions = document.getElementById('format-suggestions');
+        this.convertBtn = document.getElementById('convert-btn');
+        this.resultPanel = document.getElementById('result-panel');
+        this.convertedFiles = document.getElementById('converted-files');
+        this.downloadBtn = document.getElementById('download-btn');
+        this.cloudUploadBtn = document.getElementById('cloud-upload-btn');
+        this.timerElement = document.getElementById('delete-timer');
+        this.qrCodeContainer = document.getElementById('qr-code-container');
+        this.toolbox = document.getElementById('toolbox');
+        this.themeToggle = document.getElementById('theme-toggle');
+      }
+
+      setupEventListeners() {
+        // Drag and drop
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+          this.dropZone.addEventListener(eventName, this.preventDefaults.bind(this));
+        });
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+          this.dropZone.addEventListener(eventName, this.highlight.bind(this));
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+          this.dropZone.addEventListener(eventName, this.unhighlight.bind(this));
+        });
+
+        this.dropZone.addEventListener('drop', this.handleDrop.bind(this));
+
+        // File input
+        this.fileInput.addEventListener('change', this.handleFileSelect.bind(this));
+        this.uploadBtn.addEventListener('click', () => this.fileInput.click());
+
+        // Convert button
+        this.convertBtn.addEventListener('click', this.startConversion.bind(this));
+
+        // Toolbox
+        this.toolbox.addEventListener('click', this.handleToolClick.bind(this));
+      }
+
+      setupSocket() {
+        this.socket.on('connect', () => {
+          console.log('Connected to quantum server');
+        });
+
+        this.socket.on('conversion-progress', (data) => {
+          this.updateProgress(data);
+        });
+
+        this.socket.on('conversion-complete', (data) => {
+          this.showResults(data);
+        });
+
+        this.socket.on('error', (error) => {
+          this.showError(error);
+        });
+      }
+
+      setupThemeToggle() {
+        const savedTheme = localStorage.getItem('cosmic-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        this.themeToggle.addEventListener('click', () => {
+          const currentTheme = document.documentElement.getAttribute('data-theme');
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          
+          document.documentElement.setAttribute('data-theme', newTheme);
+          localStorage.setItem('cosmic-theme', newTheme);
+          
+          this.showToast(`Switched to ${newTheme} mode`);
+        });
+      }
+
+      preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      highlight() {
+        this.dropZone.classList.add('active');
+      }
+
+      unhighlight() {
+        this.dropZone.classList.remove('active');
+      }
+
+      handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        this.handleFiles(files);
+      }
+
+      handleFileSelect(e) {
+        this.handleFiles(e.target.files);
+      }
+
+      handleFiles(files) {
+        if (this.files.length + files.length > 10) {
+          this.showError('Maximum 10 files allowed');
+          return;
+        }
+
+        Array.from(files).forEach(file => {
+          if (file.size > 100 * 1024 * 1024) { // 100MB
+            this.showError(`File too large: ${file.name}`);
+            return;
+          }
+
+          this.files.push(file);
+          this.addFileToUI(file);
+        });
+
+        this.showFormatSuggestions();
+        this.updateUIState();
+      }
+
+      addFileToUI(file) {
+        const fileCard = this.createFileCard(file);
+        this.fileList.appendChild(fileCard);
+      }
+
+      createFileCard(file) {
+        const fileType = file.type.split('/')[0];
+        const fileExt = file.name.split('.').pop().toUpperCase();
+        const fileSize = this.formatFileSize(file.size);
+        const fileId = Date.now();
+
+        const card = document.createElement('div');
+        card.className = 'file-card';
+        card.dataset.id = fileId;
+        
+        card.innerHTML = `
+          <div class="file-header">
+            <div class="file-icon">
+              <i class="${this.getFileIcon(fileType)}"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">${file.name}</div>
+              <div class="file-size">${fileSize}</div>
+            </div>
+            <button class="remove-btn">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="file-progress">
+            <div class="progress-bar" style="width: 0%"></div>
+          </div>
+          <div class="file-meta">
+            <span class="file-type">${fileExt}</span>
+            <span class="file-status">Ready</span>
+          </div>
+        `;
+
+        card.querySelector('.remove-btn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.removeFile(fileId);
+        });
+
+        return card;
+      }
+
+      getFileIcon(type) {
+        const icons = {
+          image: 'fas fa-image',
+          video: 'fas fa-video',
+          audio: 'fas fa-music',
+          application: 'fas fa-file-alt',
+          text: 'fas fa-file-alt'
+        };
+        return icons[type] || 'fas fa-file';
+      }
+
+      formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+      }
+
+      removeFile(fileId) {
+        // Remove from UI
+        const card = document.querySelector(`.file-card[data-id="${fileId}"]`);
+        if (card) {
+          card.classList.add('removing');
+          setTimeout(() => card.remove(), 300);
+        }
+
+        // Remove from files array
+        this.files = this.files.filter((_, index) => {
+          const cardId = document.querySelectorAll('.file-card')[index]?.dataset.id;
+          return cardId !== fileId.toString();
+        });
+
+        this.showFormatSuggestions();
+        this.updateUIState();
+      }
+
+      showFormatSuggestions() {
+        if (this.files.length === 0) {
+          this.formatSuggestions.innerHTML = '';
+          return;
+        }
+
+        // Group files by type
+        const typeGroups = {};
+        this.files.forEach(file => {
+          const type = file.type.split('/')[0];
+          if (!typeGroups[type]) typeGroups[type] = [];
+          typeGroups[type].push(file);
+        });
+
+        // Generate suggestions
+        this.formatSuggestions.innerHTML = '';
+        Object.entries(typeGroups).forEach(([type, files]) => {
+          const group = document.createElement('div');
+          group.className = 'suggestion-group';
+          
+          const title = document.createElement('h4');
+          title.innerHTML = `<i class="${this.getFileIcon(type)}"></i> ${this.capitalize(type)} Files (${files.length})`;
+          
+          const formatButtons = document.createElement('div');
+          formatButtons.className = 'format-buttons';
+          
+          this.getSuggestedFormats(type, files[0]).forEach(format => {
+            const btn = document.createElement('button');
+            btn.className = 'format-btn';
+            btn.textContent = format.toUpperCase();
+            btn.dataset.format = format;
+            btn.dataset.type = type;
+            btn.addEventListener('click', () => this.selectFormat(format, type));
+            formatButtons.appendChild(btn);
+          });
+          
+          group.appendChild(title);
+          group.appendChild(formatButtons);
+          this.formatSuggestions.appendChild(group);
+        });
+      }
+
+      getSuggestedFormats(type, file) {
+        const ext = file.name.split('.').pop().toLowerCase();
+        
+        const suggestions = {
+          image: ['webp', 'avif', 'png', 'jpg', 'gif'],
+          video: ['mp4', 'mov', 'avi', 'webm', 'gif', 'mp3'],
+          audio: ['mp3', 'wav', 'ogg', 'flac'],
+          application: ['pdf', 'docx', 'txt', 'csv']
+        };
+        
+        return (suggestions[type] || []).filter(f => f !== ext);
+      }
+
+      capitalize(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      }
+
+      selectFormat(format, type) {
+        // Remove active class from all buttons
+        document.querySelectorAll('.format-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        
+        // Add active class to selected buttons of same type
+        document.querySelectorAll(`.format-btn[data-type="${type}"]`).forEach(btn => {
+          if (btn.dataset.format === format) {
+            btn.classList.add('active');
+          }
+        });
+        
+        this.selectedFormat = format;
+        this.updateUIState();
+      }
+
+      updateUIState() {
+        this.convertBtn.disabled = this.files.length === 0 || !this.selectedFormat;
+      }
+
+      startConversion() {
+        if (!this.selectedFormat) {
+          this.showError('Please select a format');
+          return;
+        }
+        
+        // Prepare files for conversion
+        const formData = new FormData();
+        this.files.forEach(file => {
+          formData.append('files', file);
+        });
+        formData.append('targetFormat', this.selectedFormat);
+        
+        // Show loading state
+        this.convertBtn.disabled = true;
+        this.convertBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Converting...';
+        
+        // Send to server
+        fetch('/api/convert', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => {
+          if (!response.ok) throw new Error('Conversion failed');
+          return response.json();
+        })
+        .then(data => {
+          this.showResults(data);
+          this.resetConvertButton();
+        })
+        .catch(error => {
+          this.showError(error.message);
+          this.resetConvertButton();
+        });
+      }
+
+      showResults(data) {
+        this.resultPanel.style.display = 'block';
+        this.convertedFiles.innerHTML = '';
+        
+        // Animate panel entrance
+        gsap.from(this.resultPanel, {
+          y: 50,
+          opacity: 0,
+          duration: 0.8,
+          ease: "back.out"
+        });
+        
+        // Add converted files
+        data.files.forEach((file, index) => {
+          const fileElement = this.createConvertedFileElement(file, index);
+          this.convertedFiles.appendChild(fileElement);
+          
+          // Animate each file
+          gsap.from(fileElement, {
+            y: 30,
+            opacity: 0,
+            delay: index * 0.1,
+            duration: 0.5,
+            ease: "power2.out"
+          });
+        });
+        
+        // Generate QR code
+        QRCode.toCanvas(this.qrCodeContainer, data.downloadUrl, {
+          width: 180,
+          color: {
+            dark: '#6e00ff',
+            light: '#0f0b1a'
+          }
+        }, (error) => {
+          if (error) console.error('QR code error:', error);
+        });
+        
+        // Start countdown
+        this.startCountdown(600); // 10 minutes
+      }
+
+      createConvertedFileElement(file, index) {
+        const element = document.createElement('div');
+        element.className = 'converted-file';
+        
+        const preview = this.getFilePreview(file);
+        const fileSize = this.formatFileSize(file.size);
+        const fileType = file.type.toUpperCase();
+        
+        element.innerHTML = `
+          <div class="file-preview">
+            ${preview}
+          </div>
+          <div class="file-details">
+            <h4>${file.name}</h4>
+            <p>${fileSize} • ${fileType}</p>
+            <a href="${file.url}" download class="download-link">
+              <i class="fas fa-download"></i> Download
+            </a>
+          </div>
+        `;
+        
+        return element;
+      }
+
+      getFilePreview(file) {
+        const extension = file.name.split('.').pop().toLowerCase();
+        const imageTypes = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        const videoTypes = ['mp4', 'mov', 'avi', 'webm'];
+        
+        if (imageTypes.includes(extension)) {
+          return `<img src="${file.url}" alt="${file.name}" class="file-thumbnail">`;
+        } else if (videoTypes.includes(extension)) {
+          return `
+            <video class="file-thumbnail">
+              <source src="${file.url}" type="video/mp4">
+            </video>
+            <div class="play-icon">
+              <i class="fas fa-play"></i>
+            </div>
+          `;
+        } else {
+          return `
+            <div class="file-icon-big">
+              <i class="${this.getFileIcon(file.type.split('/')[0])}"></i>
+              <span class="file-extension">${extension.toUpperCase()}</span>
+            </div>
+          `;
+        }
+      }
+
+      startCountdown(seconds) {
+        let remaining = seconds;
+        
+        const updateTimer = () => {
+          const mins = Math.floor(remaining / 60);
+          const secs = remaining % 60;
+          this.timerElement.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+          
+          if (remaining <= 0) {
+            clearInterval(interval);
+            this.timerElement.textContent = 'Expired';
+            this.timerElement.style.color = 'var(--cosmic-danger)';
+          }
+          
+          remaining--;
+        };
+        
+        updateTimer();
+        const interval = setInterval(updateTimer, 1000);
+      }
+
+      updateProgress(data) {
+        const { fileIndex, progress } = data;
+        const fileCard = document.querySelectorAll('.file-card')[fileIndex];
+        
+        if (fileCard) {
+          const progressBar = fileCard.querySelector('.progress-bar');
+          const status = fileCard.querySelector('.file-status');
+          
+          progressBar.style.width = `${progress}%`;
+          status.textContent = progress < 100 ? 'Processing...' : 'Done';
+          
+          if (progress === 100) {
+            status.style.color = 'var(--cosmic-success)';
+          }
+        }
+      }
+
+      handleToolClick(e) {
+        const toolCard = e.target.closest('.tool-card');
+        if (!toolCard) return;
+        
+        const toolName = toolCard.dataset.tool;
+        this.showToast(`Tool activated: ${this.formatToolName(toolName)}`);
+        
+        // In a real app, this would open the specific tool interface
+      }
+
+      formatToolName(tool) {
+        return tool.split('-').map(word => 
+          word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' ');
+      }
+
+      resetConvertButton() {
+        this.convertBtn.disabled = false;
+        this.convertBtn.innerHTML = '<i class="fas fa-magic"></i> Convert Files';
+      }
+
+      showError(message) {
+        this.showToast(message, 'error');
+      }
+
+      showToast(message, type = 'info') {
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        
+        const icons = {
+          info: 'fas fa-info-circle',
+          error: 'fas fa-exclamation-circle',
+          success: 'fas fa-check-circle'
+        };
+        
+        toast.innerHTML = `
+          <div class="toast-icon">
+            <i class="${icons[type] || icons.info}"></i>
+          </div>
+          <div class="toast-message">${message}</div>
+          <button class="toast-close">
+            <i class="fas fa-times"></i>
+          </button>
+        `;
+        
+        document.body.appendChild(toast);
+        
+        // Position toast
+        const toasts = document.querySelectorAll('.toast');
+        toast.style.bottom = `${25 + (toasts.length - 1) * 70}px`;
+        
+        // Animate in
+        setTimeout(() => {
+          toast.classList.add('show');
+        }, 10);
+        
+        // Auto-remove
+        setTimeout(() => {
+          toast.classList.remove('show');
+          setTimeout(() => toast.remove(), 300);
+        }, 5000);
+        
+        // Close button
+        toast.querySelector('.toast-close').addEventListener('click', () => {
+          toast.classList.remove('show');
+          setTimeout(() => toast.remove(), 300);
+        });
+      }
+    }
+
+    // Initialize the app when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      window.cosmicApp = new CosmicConverterApp();
+    });
+
+    // Add toast styles
+    const toastStyles = document.createElement('style');
+    toastStyles.textContent = `
+      .toast {
+        position: fixed;
+        right: 2rem;
+        bottom: 2rem;
+        background: var(--cosmic-dark);
+        border-left: 4px solid var(--cosmic-primary);
+        color: var(--cosmic-light);
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        transform: translateX(150%);
+        transition: all 0.3s ease;
+        z-index: 1000;
+        max-width: 400px;
+      }
+      
+      .toast.show {
+        transform: translateX(0);
+      }
+      
+      .toast-error {
+        border-left-color: var(--cosmic-danger);
+      }
+      
+      .toast-success {
+        border-left-color: var(--cosmic-success);
+      }
+      
+      .toast-icon {
+        font-size: 1.5rem;
+      }
+      
+      .toast-icon .fa-info-circle {
+        color: var(--cosmic-accent);
+      }
+      
+      .toast-icon .fa-exclamation-circle {
+        color: var(--cosmic-danger);
+      }
+      
+      .toast-icon .fa-check-circle {
+        color: var(--cosmic-success);
+      }
+      
+      .toast-message {
+        flex: 1;
+      }
+      
+      .toast-close {
+        background: none;
+        border: none;
+        color: var(--cosmic-light);
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+      }
+      
+      .toast-close:hover {
+        opacity: 1;
+      }
+    `;
+    document.head.appendChild(toastStyles);
+  </script>
+</body>
+</html>
